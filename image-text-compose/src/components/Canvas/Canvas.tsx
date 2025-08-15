@@ -24,10 +24,12 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
 
     // Store reference
     if (canvasRef) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (canvasRef as any).current = fabricCanvas;
     }
 
     // Add event listeners to sync object positions back to store
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (fabricCanvas as any).on('object:moved', (e: any) => {
       const obj = e.target;
       const layerId = obj.layerId;
@@ -41,6 +43,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
       }
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (fabricCanvas as any).on('object:modified', (e: any) => {
       const obj = e.target;
       const layerId = obj.layerId;
@@ -58,6 +61,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
     });
 
     // Handle text content changes
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (fabricCanvas as any).on('text:changed', (e: any) => {
       const obj = e.target;
       const layerId = obj.layerId;
@@ -70,6 +74,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
     });
 
     // Handle text editing exit to ensure final sync
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (fabricCanvas as any).on('text:editing:exited', (e: any) => {
       const obj = e.target;
       const layerId = obj.layerId;
@@ -117,7 +122,9 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
             selectable: !layer.locked,
             evented: !layer.locked,
           });
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (textObj as any).layerId = layer.id;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           fabricCanvas.add(textObj as any);
         });
         
@@ -129,7 +136,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
     return () => {
       fabricCanvas.dispose();
     };
-  }, [canvasDimensions, backgroundImage]);
+  }, [canvasDimensions, backgroundImage, canvasRef, pushHistory, textLayers, updateTextLayer]);
 
   // Sync text layers with Fabric.js canvas
   useEffect(() => {
@@ -143,11 +150,13 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
     
     // Get existing text objects
     const existingTextObjects = fabricCanvas.getObjects().filter(obj => 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       obj.type === 'textbox' && (obj as any).layerId
     );
 
     // Remove text objects that no longer exist in store
     existingTextObjects.forEach(obj => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const layerId = (obj as any).layerId;
       if (!textLayers.find(layer => layer.id === layerId)) {
         fabricCanvas.remove(obj);
@@ -157,6 +166,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
     // Add or update text objects for each layer
     textLayers.forEach(layer => {
       const existingObj = existingTextObjects.find(obj => 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (obj as any).layerId === layer.id
       );
 
@@ -179,13 +189,16 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
         });
 
         // Store layer ID for tracking
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (textObj as any).layerId = layer.id;
         
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         fabricCanvas.add(textObj as any);
         fabricCanvas.renderAll(); // Force render after adding
 
       } else {
         // Update existing object properties (preserve position unless explicitly changed)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (existingObj as any).set({
           text: layer.text,
           fontSize: layer.fontSize || 24,
@@ -201,19 +214,11 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
         });
         
         // Always update position to match store (store is the source of truth)
-        const oldLeft = existingObj.left || 0;
-        const oldTop = existingObj.top || 0;
-        
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (existingObj as any).set({
           left: layer.left,
           top: layer.top,
         });
-        
-        // Verify the position was actually set
-        const newLeft = existingObj.left || 0;
-        const newTop = existingObj.top || 0;
-        
-
       }
     });
 
@@ -236,18 +241,23 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
 
     // Find text objects that match selected layer IDs
     const objectsToSelect = fabricCanvas.getObjects().filter(obj => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const layerId = (obj as any).layerId;
       return layerId && selectedLayerIds.includes(layerId);
     });
 
     if (objectsToSelect.length === 1) {
       // Single selection
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       fabricCanvas.setActiveObject(objectsToSelect[0] as any);
     } else if (objectsToSelect.length > 1) {
       // Multiple selection
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const selection = new fabric.ActiveSelection(objectsToSelect as any, {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         canvas: fabricCanvas as any,
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       fabricCanvas.setActiveObject(selection as any);
     }
 

@@ -30,12 +30,14 @@ const TextProperties: React.FC = () => {
     );
   }
   
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (property: keyof TextLayerProperties, value: any) => {
     updateTextLayer(selectedLayer.id, { [property]: value });
     debouncedPushHistory(`Updated ${property}`);
   };
   
   // Handle shadow property changes
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleShadowChange = (shadowProperty: keyof TextShadow, value: any) => {
     const currentShadow = selectedLayer.shadow || {
       color: 'rgba(0,0,0,0.5)',

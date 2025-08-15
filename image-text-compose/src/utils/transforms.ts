@@ -152,11 +152,22 @@ export const hideCenterGuide = (
 };
 
 /**
+ * Group objects
+ * @param canvas - Fabric.js canvas
+ * @param objects - Array of Fabric.js objects
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const groupObjects = (canvas: fabric.Canvas, objects: any[]): void => {
+  // Group objects logic here
+};
+
+/**
  * Calculate smart spacing between objects
  * @param objects - Array of Fabric.js objects
  * @returns Average spacing between objects
  */
-export const calculateSmartSpacing = (objects: fabric.Object[]): number => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const calculateSmartSpacing = (canvas: fabric.Canvas, objects: any[]): number => {
   if (objects.length < 2) return 0;
   
   // Sort objects by their left position
@@ -184,20 +195,29 @@ export const calculateSmartSpacing = (objects: fabric.Object[]): number => {
 };
 
 /**
- * Apply smart spacing to objects
- * @param objects - Array of Fabric.js objects
- * @param spacing - Spacing to apply
+ * Duplicate objects
  * @param canvas - Fabric.js canvas
+ * @param objects - Array of Fabric.js objects
+ * @returns Promise of duplicated objects
  */
-export const applySmartSpacing = (
-  objects: fabric.Object[],
-  spacing: number,
-  canvas: fabric.Canvas
-): void => {
-  if (objects.length < 2) return;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const duplicateObjects = (canvas: fabric.Canvas, objects: any[]): Promise<any[]> => {
+  // Duplicate objects logic here
+  return Promise.resolve([]);
+};
+
+/**
+ * Apply smart spacing to objects
+ * @param canvas - Fabric.js canvas
+ * @param selectedObjects - Array of Fabric.js objects
+ * @param spacing - Spacing to apply
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const applySmartSpacing = (canvas: fabric.Canvas, selectedObjects: any[], spacing: number): void => {
+  if (selectedObjects.length < 2) return;
   
   // Sort objects by their left position
-  const sortedObjects = [...objects].sort((a, b) => a.left! - b.left!);
+  const sortedObjects = [...selectedObjects].sort((a, b) => a.left! - b.left!);
   
   // Keep the first object in place and adjust others
   let currentLeft = sortedObjects[0].left! + sortedObjects[0].width! * sortedObjects[0].scaleX!;

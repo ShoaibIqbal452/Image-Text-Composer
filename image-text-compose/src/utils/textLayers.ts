@@ -38,115 +38,54 @@ export const createTextLayer = (
 };
 
 /**
- * Create a Fabric.js IText object from text layer properties
- * @param props - Text layer properties
- * @returns Fabric.js IText object
+ * Create a Fabric.js Textbox object from text layer properties
+ * @param layer - Text layer properties
+ * @returns Fabric.js Textbox object
  */
-export const createFabricTextFromProps = (
-  props: TextLayerProperties
-): fabric.IText => {
-  const text = new fabric.IText(props.text, {
-    left: props.x,
-    top: props.y,
-    width: props.width,
-    fontSize: props.fontSize,
-    fontFamily: props.fontFamily,
-    fontWeight: props.fontWeight as any,
-    fill: props.color,
-    opacity: props.opacity,
-    textAlign: props.textAlign as any,
-    angle: props.angle,
-    lineHeight: props.lineHeight,
-    charSpacing: props.charSpacing,
-    lockMovementX: props.locked,
-    lockMovementY: props.locked,
-    lockRotation: props.locked,
-    lockScalingX: props.locked,
-    lockScalingY: props.locked,
-    selectable: !props.locked,
-    editable: !props.locked,
+export const createTextObjectFromLayer = (layer: TextLayer): fabric.Textbox => {
+  const textObj = new fabric.Textbox(layer.text, {
+    left: layer.left,
+    top: layer.top,
+    fontSize: layer.fontSize || 24,
+    fill: layer.color || '#000000',
+    fontFamily: layer.fontFamily || 'Arial',
+    width: layer.width || 200,
+    opacity: layer.opacity || 1,
+    lineHeight: layer.lineHeight || 1.2,
+    charSpacing: layer.charSpacing || 0,
+    visible: true,
+    selectable: !layer.locked,
+    evented: !layer.locked,
   });
 
-  // Store the layer ID in the fabric object for reference
-  text.data = { id: props.id };
-
-  return text;
+  // Store layer ID for tracking
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (textObj as any).layerId = layer.id;
+  return textObj;
 };
 
 /**
- * Update a Fabric.js IText object with text layer properties
- * @param fabricText - Fabric.js IText object to update
- * @param props - Text layer properties
+ * Update a Fabric.js Textbox object with text layer properties
+ * @param textObj - Fabric.js Textbox object to update
+ * @param layer - Text layer properties
  */
-export const updateFabricTextFromProps = (
-  fabricText: fabric.IText,
-  props: Partial<TextLayerProperties>
-): void => {
-  if (props.text !== undefined) {
-    fabricText.set('text', props.text);
-  }
-  
-  if (props.x !== undefined) {
-    fabricText.set('left', props.x);
-  }
-  
-  if (props.y !== undefined) {
-    fabricText.set('top', props.y);
-  }
-  
-  if (props.width !== undefined) {
-    fabricText.set('width', props.width);
-  }
-  
-  if (props.fontSize !== undefined) {
-    fabricText.set('fontSize', props.fontSize);
-  }
-  
-  if (props.fontFamily !== undefined) {
-    fabricText.set('fontFamily', props.fontFamily);
-  }
-  
-  if (props.fontWeight !== undefined) {
-    fabricText.set('fontWeight', props.fontWeight as any);
-  }
-  
-  if (props.color !== undefined) {
-    fabricText.set('fill', props.color);
-  }
-  
-  if (props.opacity !== undefined) {
-    fabricText.set('opacity', props.opacity);
-  }
-  
-  if (props.textAlign !== undefined) {
-    fabricText.set('textAlign', props.textAlign as any);
-  }
-  
-  if (props.angle !== undefined) {
-    fabricText.set('angle', props.angle);
-  }
-  
-  if (props.lineHeight !== undefined) {
-    fabricText.set('lineHeight', props.lineHeight);
-  }
-  
-  if (props.charSpacing !== undefined) {
-    fabricText.set('charSpacing', props.charSpacing);
-  }
-  
-  if (props.locked !== undefined) {
-    fabricText.set({
-      lockMovementX: props.locked,
-      lockMovementY: props.locked,
-      lockRotation: props.locked,
-      lockScalingX: props.locked,
-      lockScalingY: props.locked,
-      selectable: !props.locked,
-      editable: !props.locked,
-    });
-  }
-  
-  fabricText.setCoords();
+export const updateTextObjectFromLayer = (textObj: fabric.Textbox, layer: TextLayer): void => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (textObj as any).set({
+    text: layer.text,
+    left: layer.left,
+    top: layer.top,
+    fontSize: layer.fontSize,
+    fill: layer.color,
+    fontFamily: layer.fontFamily,
+    width: layer.width,
+    opacity: layer.opacity,
+    lineHeight: layer.lineHeight,
+    charSpacing: layer.charSpacing,
+    selectable: !layer.locked,
+    evented: !layer.locked,
+  });
+  textObj.setCoords();
 };
 
 /**

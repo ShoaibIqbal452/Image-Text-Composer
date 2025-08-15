@@ -59,7 +59,7 @@ class ErrorBoundary extends Component<Props, State> {
             
             <div className="mb-4">
               <p className="text-sm text-gray-600">
-                The application encountered an unexpected error. Don't worry - your work should be saved automatically.
+                The application encountered an unexpected error. Don&apos;t worry - your work should be saved automatically.
               </p>
             </div>
 

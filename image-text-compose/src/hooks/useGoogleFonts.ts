@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 // Import dynamically to prevent SSR issues
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let WebFont: any = null;
 const API_KEY = process.env.GOOGLE_FONTS_API_KEY || 'AIzaSyAOES8EmKhuJEnsn9kS1XKBpxxp-TgN8Jc';
 
