@@ -1,5 +1,4 @@
 import type { Canvas as FabricCanvas } from 'fabric/fabric-impl';
-import * as fabric from 'fabric';
 import { BackgroundImage } from '../types/canvas';
 
 /**

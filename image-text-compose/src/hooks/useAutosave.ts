@@ -66,10 +66,7 @@ export function useAutosave() {
 
   // Check for saved state on initial load
   useEffect(() => {
-    const hasSavedState = savedState !== null;
-    return () => {
-      // This is just to return the value for use in the component
-    };
+    // This effect runs when savedState changes
   }, [savedState]);
 
   return {

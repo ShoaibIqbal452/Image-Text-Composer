@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CustomFont, FontLoadResult } from '@/types/fonts';
+import { CustomFont } from '@/types/fonts';
 
 interface FontState {
   customFonts: CustomFont[];

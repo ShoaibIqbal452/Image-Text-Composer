@@ -107,7 +107,9 @@ export const showCenterGuide = (
   // we'll ensure the guide is on top by moving it to the end of the objects array
   try {
     // Try the standard method first
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (typeof (guide as any).bringToFront === 'function') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (guide as any).bringToFront();
     } else {
       // Manual approach: move to end of objects array
@@ -145,6 +147,7 @@ export const hideCenterGuide = (
   const guideId = `center-guide-${orientation}`;
   const objects = canvas.getObjects();
   
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const guide = objects.find((obj) => (obj as any).id === guideId);
   if (guide) {
     canvas.remove(guide);
@@ -157,6 +160,7 @@ export const hideCenterGuide = (
  * @param objects - Array of Fabric.js objects
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const groupObjects = (canvas: fabric.Canvas, objects: any[]): void => {
   // Group objects logic here
 };
@@ -201,6 +205,7 @@ export const calculateSmartSpacing = (canvas: fabric.Canvas, objects: any[]): nu
  * @returns Promise of duplicated objects
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const duplicateObjects = (canvas: fabric.Canvas, objects: any[]): Promise<any[]> => {
   // Duplicate objects logic here
   return Promise.resolve([]);
@@ -212,6 +217,7 @@ export const duplicateObjects = (canvas: fabric.Canvas, objects: any[]): Promise
  * @param selectedObjects - Array of Fabric.js objects
  * @param spacing - Spacing to apply
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const applySmartSpacing = (canvas: fabric.Canvas, selectedObjects: any[], spacing: number): void => {
   if (selectedObjects.length < 2) return;
@@ -254,6 +260,7 @@ export const showSpacingGuides = (
   
   // Remove any existing guides
   const existingGuides = canvas.getObjects().filter((obj) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (obj as any).id?.startsWith('spacing-guide-');
   });
   
@@ -307,6 +314,7 @@ export const showSpacingGuides = (
   // Automatically remove guides after 2 seconds
   setTimeout(() => {
     const guides = canvas.getObjects().filter((obj) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (obj as any).id?.startsWith('spacing-guide-');
     });
     

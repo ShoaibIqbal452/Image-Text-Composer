@@ -67,7 +67,7 @@ const LayerPanel: React.FC = () => {
     if (!layerToDuplicate) return;
     
     // Create a duplicate with slightly offset position
-    const { id: originalId, ...layerWithoutId } = layerToDuplicate;
+    const { id: _originalId, ...layerWithoutId } = layerToDuplicate;
     
     addTextLayer({
       ...layerWithoutId,
