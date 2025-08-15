@@ -107,6 +107,7 @@ export const showCenterGuide = (
   // we'll ensure the guide is on top by moving it to the end of the objects array
   try {
     // Try the standard method first
+    // TODO: Create typed wrapper for fabric object methods
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (typeof (guide as any).bringToFront === 'function') {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -147,6 +148,7 @@ export const hideCenterGuide = (
   const guideId = `center-guide-${orientation}`;
   const objects = canvas.getObjects();
   
+  // TODO: Use module augmentation to extend fabric.Object with id property
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const guide = objects.find((obj) => (obj as any).id === guideId);
   if (guide) {
@@ -255,6 +257,7 @@ export const showSpacingGuides = (
   
   // Remove any existing guides
   const existingGuides = canvas.getObjects().filter((obj) => {
+    // TODO: Use module augmentation to extend fabric.Object with id property
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (obj as any).id?.startsWith('spacing-guide-');
   });
@@ -309,6 +312,7 @@ export const showSpacingGuides = (
   // Automatically remove guides after 2 seconds
   setTimeout(() => {
     const guides = canvas.getObjects().filter((obj) => {
+      // TODO: Use module augmentation to extend fabric.Object with id property
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (obj as any).id?.startsWith('spacing-guide-');
     });

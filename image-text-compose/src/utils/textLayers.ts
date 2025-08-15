@@ -61,6 +61,7 @@ export const createTextObjectFromLayer = (layer: TextLayerProperties): fabric.Te
   });
 
   // Store layer ID for tracking
+  // TODO: Use module augmentation to extend fabric.Object with layerId property
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (textObj as any).layerId = layer.id;
   return textObj;
@@ -72,6 +73,7 @@ export const createTextObjectFromLayer = (layer: TextLayerProperties): fabric.Te
  * @param layer - Text layer properties
  */
 export const updateTextObjectFromLayer = (textObj: fabric.Textbox, layer: TextLayerProperties): void => {
+  // TODO: Create typed wrapper for fabric object.set method
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (textObj as any).set({
     text: layer.text,
@@ -101,6 +103,7 @@ export const extractPropsFromFabricText = (
   id?: string
 ): TextLayerProperties => {
   return {
+    // TODO: Use module augmentation to extend fabric.Object with layerId property
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     id: id || ((fabricText as any).layerId as string) || nanoid(),
     text: fabricText.text || '',

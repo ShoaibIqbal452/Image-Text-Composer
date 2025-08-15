@@ -24,11 +24,13 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
 
     // Store reference
     if (canvasRef) {
+      // TODO: Create proper CanvasRef interface - Fabric.js integration challenge
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (canvasRef as any).current = fabricCanvas;
     }
 
     // Add event listeners to sync object positions back to store
+    // TODO: Create FabricObjectEvent interface for proper event typing
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (fabricCanvas as any).on('object:moved', (e: any) => {
       const obj = e.target;
@@ -43,6 +45,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
       }
     });
 
+    // TODO: Create FabricObjectEvent interface for proper event typing
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (fabricCanvas as any).on('object:modified', (e: any) => {
       const obj = e.target;
@@ -61,6 +64,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
     });
 
     // Handle text content changes
+    // TODO: Create FabricTextEvent interface for proper event typing
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (fabricCanvas as any).on('text:changed', (e: any) => {
       const obj = e.target;
@@ -74,6 +78,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
     });
 
     // Handle text editing exit to ensure final sync
+    // TODO: Create FabricTextEvent interface for proper event typing
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (fabricCanvas as any).on('text:editing:exited', (e: any) => {
       const obj = e.target;
@@ -122,8 +127,10 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
             selectable: !layer.locked,
             evented: !layer.locked,
           });
+          // TODO: Use module augmentation to extend fabric.Object with layerId property
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (textObj as any).layerId = layer.id;
+          // TODO: Create typed wrapper for canvas.add method
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           fabricCanvas.add(textObj as any);
         });
@@ -150,6 +157,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
     
     // Get existing text objects
     const existingTextObjects = fabricCanvas.getObjects().filter(obj => 
+      // TODO: Use module augmentation to extend fabric.Object with layerId property
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       obj.type === 'textbox' && (obj as any).layerId
     );
@@ -166,6 +174,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
     // Add or update text objects for each layer
     textLayers.forEach(layer => {
       const existingObj = existingTextObjects.find(obj => 
+        // TODO: Use module augmentation to extend fabric.Object with layerId property
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (obj as any).layerId === layer.id
       );
@@ -189,9 +198,11 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
         });
 
         // Store layer ID for tracking
+        // TODO: Use module augmentation to extend fabric.Object with layerId property
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (textObj as any).layerId = layer.id;
         
+        // TODO: Create typed wrapper for canvas.add method
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         fabricCanvas.add(textObj as any);
         fabricCanvas.renderAll(); // Force render after adding
@@ -248,15 +259,19 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef }) => {
 
     if (objectsToSelect.length === 1) {
       // Single selection
+      // TODO: Create typed wrapper for canvas.setActiveObject method
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       fabricCanvas.setActiveObject(objectsToSelect[0] as any);
     } else if (objectsToSelect.length > 1) {
       // Multiple selection
+      // TODO: Create proper ActiveSelection type definitions
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const selection = new fabric.ActiveSelection(objectsToSelect as any, {
+        // TODO: Create proper Canvas type definitions
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         canvas: fabricCanvas as any,
       });
+      // TODO: Create typed wrapper for canvas.setActiveObject method
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       fabricCanvas.setActiveObject(selection as any);
     }

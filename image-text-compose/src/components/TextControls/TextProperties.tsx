@@ -30,6 +30,7 @@ const TextProperties: React.FC = () => {
     );
   }
   
+  // TODO: Replace any with proper union type for TextLayerProperties values
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (property: keyof TextLayerProperties, value: any) => {
     updateTextLayer(selectedLayer.id, { [property]: value });
@@ -37,6 +38,7 @@ const TextProperties: React.FC = () => {
   };
   
   // Handle shadow property changes
+  // TODO: Replace any with proper union type for TextShadow property values
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleShadowChange = (shadowProperty: keyof TextShadow, value: any) => {
     const currentShadow = selectedLayer.shadow || {
