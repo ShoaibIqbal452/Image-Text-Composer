@@ -159,9 +159,8 @@ export const hideCenterGuide = (
  * @param canvas - Fabric.js canvas
  * @param objects - Array of Fabric.js objects
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const groupObjects = (canvas: fabric.Canvas, objects: any[]): void => {
+export const groupObjects = (canvas: fabric.Canvas, objects: fabric.Object[]): void => {
   // Group objects logic here
 };
 
@@ -170,8 +169,7 @@ export const groupObjects = (canvas: fabric.Canvas, objects: any[]): void => {
  * @param objects - Array of Fabric.js objects
  * @returns Average spacing between objects
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const calculateSmartSpacing = (canvas: fabric.Canvas, objects: any[]): number => {
+export const calculateSmartSpacing = (canvas: fabric.Canvas, objects: fabric.Object[]): number => {
   if (objects.length < 2) return 0;
   
   // Sort objects by their left position
@@ -204,9 +202,8 @@ export const calculateSmartSpacing = (canvas: fabric.Canvas, objects: any[]): nu
  * @param objects - Array of Fabric.js objects
  * @returns Promise of duplicated objects
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const duplicateObjects = (canvas: fabric.Canvas, objects: any[]): Promise<any[]> => {
+export const duplicateObjects = (canvas: fabric.Canvas, objects: fabric.Object[]): Promise<fabric.Object[]> => {
   // Duplicate objects logic here
   return Promise.resolve([]);
 };
@@ -217,9 +214,7 @@ export const duplicateObjects = (canvas: fabric.Canvas, objects: any[]): Promise
  * @param selectedObjects - Array of Fabric.js objects
  * @param spacing - Spacing to apply
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const applySmartSpacing = (canvas: fabric.Canvas, selectedObjects: any[], spacing: number): void => {
+export const applySmartSpacing = (canvas: fabric.Canvas, selectedObjects: fabric.Object[], spacing: number): void => {
   if (selectedObjects.length < 2) return;
   
   // Sort objects by their left position

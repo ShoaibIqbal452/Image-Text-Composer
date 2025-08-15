@@ -67,7 +67,8 @@ const LayerPanel: React.FC = () => {
     if (!layerToDuplicate) return;
     
     // Create a duplicate with slightly offset position
-    const { id: _originalId, ...layerWithoutId } = layerToDuplicate;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { id: _id, ...layerWithoutId } = layerToDuplicate;
     
     addTextLayer({
       ...layerWithoutId,
