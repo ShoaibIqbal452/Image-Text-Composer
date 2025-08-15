@@ -12,15 +12,20 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Force light mode for better UI visibility */
+body {
+  background: #ffffff;
+  color: #171717;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Ensure all text is dark and visible */
+h1, h2, h3, h4, h5, h6, p, span, div, button {
+  color: #171717 !important;
+}
+
+/* Make sure headings are bold and visible */
+h1 {
+  font-weight: 600 !important;
+  color: #000000 !important;
 }
