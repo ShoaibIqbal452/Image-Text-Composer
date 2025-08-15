@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { TextLayerProperties } from '@/types/canvas';
-import { fabric } from 'fabric';
+import * as fabric from 'fabric';
 
 // Default properties for new text layers
 export const DEFAULT_TEXT_PROPERTIES: TextLayerProperties = {
@@ -12,8 +12,10 @@ export const DEFAULT_TEXT_PROPERTIES: TextLayerProperties = {
   color: '#000000',
   opacity: 1,
   textAlign: 'left',
-  x: 0,
-  y: 0,
+  left: 0,
+  top: 0,
+  scaleX: 1,
+  scaleY: 1,
   width: 200,
   height: 50,
   angle: 0,
@@ -42,7 +44,7 @@ export const createTextLayer = (
  * @param layer - Text layer properties
  * @returns Fabric.js Textbox object
  */
-export const createTextObjectFromLayer = (layer: TextLayer): fabric.Textbox => {
+export const createTextObjectFromLayer = (layer: TextLayerProperties): fabric.Textbox => {
   const textObj = new fabric.Textbox(layer.text, {
     left: layer.left,
     top: layer.top,
@@ -69,7 +71,7 @@ export const createTextObjectFromLayer = (layer: TextLayer): fabric.Textbox => {
  * @param textObj - Fabric.js Textbox object to update
  * @param layer - Text layer properties
  */
-export const updateTextObjectFromLayer = (textObj: fabric.Textbox, layer: TextLayer): void => {
+export const updateTextObjectFromLayer = (textObj: fabric.Textbox, layer: TextLayerProperties): void => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (textObj as any).set({
     text: layer.text,
@@ -99,7 +101,8 @@ export const extractPropsFromFabricText = (
   id?: string
 ): TextLayerProperties => {
   return {
-    id: id || (fabricText.data?.id as string) || nanoid(),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    id: id || ((fabricText as any).layerId as string) || nanoid(),
     text: fabricText.text || '',
     fontFamily: fabricText.fontFamily || DEFAULT_TEXT_PROPERTIES.fontFamily,
     fontSize: fabricText.fontSize || DEFAULT_TEXT_PROPERTIES.fontSize,
@@ -107,8 +110,10 @@ export const extractPropsFromFabricText = (
     color: fabricText.fill as string || DEFAULT_TEXT_PROPERTIES.color,
     opacity: fabricText.opacity || DEFAULT_TEXT_PROPERTIES.opacity,
     textAlign: (fabricText.textAlign as 'left' | 'center' | 'right') || DEFAULT_TEXT_PROPERTIES.textAlign,
-    x: fabricText.left || 0,
-    y: fabricText.top || 0,
+    left: fabricText.left || 0,
+    top: fabricText.top || 0,
+    scaleX: fabricText.scaleX || 1,
+    scaleY: fabricText.scaleY || 1,
     width: fabricText.width || DEFAULT_TEXT_PROPERTIES.width,
     height: fabricText.height || DEFAULT_TEXT_PROPERTIES.height,
     angle: fabricText.angle || 0,
